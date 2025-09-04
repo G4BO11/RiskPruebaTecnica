@@ -8,7 +8,7 @@ public class DetalleVenta
     public decimal Subtotal { get; set; }
     public Guid VentaId { get; set; }
     public Guid ProductoId { get; set; }
-    
+
     public virtual Venta Venta { get; set; }
     public virtual Producto Producto { get; set; }
 }
