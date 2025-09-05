@@ -5,5 +5,4 @@ public class ProductoDto
     public string Nombre { get; set; }
     public decimal ValorUnitario { get; set; }
     public int UnidadesExistentes { get; set; }
-    //public bool TieneStock => UnidadesExistentes > 0;
 }

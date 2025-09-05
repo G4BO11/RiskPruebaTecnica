@@ -7,25 +7,31 @@ namespace RiskPruebaTecnica.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IVentaService _ventaService;
+    private readonly IProductoService _productoService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IVentaService ventaService, IProductoService productoService)
     {
         _logger = logger;
+        _ventaService = ventaService;
+        _productoService = productoService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var ventasHoy = await _ventaService.GetVentasByFechaAsync(DateTime.UtcNow.Date);
+        var productos = await _productoService.GetAllAsync();
+
+        var viewModel = new DashboardViewModel
+        {
+            VentasHoy = ventasHoy.Count(),
+            TotalVentasHoy = ventasHoy.Sum(v => v.Total),
+            ProductosBajoStock = productos.Count(p => p.UnidadesExistentes < 10),
+            UltimasVentas = ventasHoy.OrderByDescending(v => v.FechaVenta).Take(5).ToList()
+        };
+
+        return View(viewModel);
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
 }

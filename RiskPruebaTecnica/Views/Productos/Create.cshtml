@@ -1,0 +1,105 @@
+<!-- Views/Productos/Create.cshtml -->
+@model ProductoDto
+@{
+    ViewData["Title"] = "Nuevo Producto";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Registrar Nuevo Producto</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Información del Producto</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="Codigo" class="form-label">Código del Producto</label>
+                                <input asp-for="Codigo" class="form-control" required placeholder="Ej: P001" />
+                                <div class="form-text">Código único para identificar el producto</div>
+                                <span asp-validation-for="Codigo" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="ValorUnitario" class="form-label">Precio Unitario</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input asp-for="ValorUnitario" type="number" step="0.01" min="0"
+                                        class="form-control" required />
+                                </div>
+                                <span asp-validation-for="ValorUnitario" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label">Nombre del Producto</label>
+                        <input asp-for="Nombre" class="form-control" required placeholder="Ej: Arroz Diana 1kg" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="UnidadesExistentes" class="form-label">Stock Inicial</label>
+                        <input asp-for="UnidadesExistentes" type="number" min="0" class="form-control" required />
+                        <div class="form-text">Cantidad de unidades disponibles para la venta</div>
+                        <span asp-validation-for="UnidadesExistentes" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de ayuda -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h6>💡 Consejos</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><strong>Código:</strong> Use un formato consistente (P001, P002, etc.)</li>
+                    <li><strong>Nombre:</strong> Sea descriptivo e incluya marca/tamaño si es necesario</li>
+                    <li><strong>Precio:</strong> Ingrese el precio final de venta</li>
+                    <li><strong>Stock:</strong> Esta será la cantidad inicial disponible</li>
+                </ul>
+
+                <div class="alert alert-info mt-3">
+                    <small><strong>Nota:</strong> El stock se actualizará automáticamente con cada venta
+                        realizada.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Formatear precio mientras se escribe
+        $('#ValorUnitario').on('input', function () {
+            let value = $(this).val();
+            if (value) {
+                // Opcional: formatear número con separadores de miles
+                console.log('Precio ingresado:', value);
+            }
+        });
+    </script>
+}

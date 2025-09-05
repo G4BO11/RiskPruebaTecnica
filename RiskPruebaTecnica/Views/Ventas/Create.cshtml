@@ -1,0 +1,163 @@
+<!-- Views/Ventas/Create.cshtml -->
+@model VentaRequest
+@{
+    ViewData["Title"] = "Nueva Venta";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Nueva Venta</h2>
+        @Html.AntiForgeryToken()
+    </div>
+</div>
+
+<div class="row">
+    <!-- Sección Cliente -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>1. Identificar Cliente</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Número de Identificación</label>
+                    <div class="input-group">
+                        <input type="text" id="numeroIdentificacion" class="form-control"
+                            placeholder="Ingrese cédula o NIT">
+                        <button type="button" id="buscarCliente" class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+
+                <div id="clienteInfo" style="display: none;">
+                    <div class="alert alert-success">
+                        <strong>Cliente encontrado:</strong>
+                        <span id="clienteNombre"></span>
+                        <input type="hidden" id="clienteId" name="ClienteId">
+                    </div>
+                </div>
+
+                <div id="clienteNoEncontrado" style="display: none;">
+                    <div class="alert alert-warning">
+                        Cliente no encontrado.
+                        <button type="button" id="registrarCliente" class="btn btn-sm btn-outline-primary">Registrar
+                            Nuevo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección Productos -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>2. Agregar Productos</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Producto</label>
+                    <select id="productoSelect" class="form-select">
+                        <option value="">Seleccione un producto</option>
+                        @foreach (var producto in ViewBag.Productos as List<ProductoDto>)
+                        {
+                            <option value="@producto.Id" data-precio="@producto.ValorUnitario"
+                                data-stock="@producto.UnidadesExistentes">
+                                @producto.Nombre - $@producto.ValorUnitario.ToString("N0") (Stock:
+                                @producto.UnidadesExistentes)
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Cantidad</label>
+                    <input type="number" id="cantidad" class="form-control" min="1" value="1">
+                </div>
+                <button type="button" id="agregarProducto" class="btn btn-success">Agregar Producto</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Carrito de Compras -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>3. Productos en la Venta</h5>
+            </div>
+            <div class="card-body">
+                <table class="table" id="productosVenta">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3">TOTAL</th>
+                            <th id="totalVenta">$0</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="mt-3">
+                    <button type="button" id="procesarVenta" class="btn btn-primary btn-lg" disabled>
+                        Procesar Venta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para registro rápido de cliente -->
+<div class="modal fade" id="modalClienteNuevo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registrar Nuevo Cliente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formClienteNuevo">
+                    <input type="hidden" id="nuevoNumeroIdentificacion">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" id="nuevoNombre" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Apellido</label>
+                        <input type="text" id="nuevoApellido" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dirección</label>
+                        <input type="text" id="nuevaDireccion" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono</label>
+                        <input type="text" id="nuevoTelefono" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="nuevoEmail" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="guardarCliente" class="btn btn-primary">Guardar Cliente</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/ventas.js"></script>
+    @Html.AntiForgeryToken()
+}

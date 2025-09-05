@@ -1,0 +1,107 @@
+<!-- Views/Clientes/Index.cshtml -->
+@model IEnumerable<ClienteDto>
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Gestión de Clientes</h2>
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Nuevo Cliente
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Clientes Registrados</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Identificación</th>
+                                    <th>Nombre</th>
+                                    <th>Teléfono</th>
+                                    <th>Email</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cliente in Model)
+                                {
+                                    <tr>
+                                        <td>@cliente.NumeroIdentificacion</td>
+                                        <td>@cliente.Nombre @cliente.Apellido</td>
+                                        <td>@cliente.Telefono</td>
+                                        <td>@cliente.Email</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a asp-action="Edit" asp-route-id="@cliente.Id"
+                                                    class="btn btn-sm btn-outline-primary">
+                                                    Editar
+                                                </a>
+                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                    onclick="confirmarEliminar('@cliente.Id', '@cliente.Nombre @cliente.Apellido')">
+                                                    Eliminar
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info text-center">
+                        <h4>No hay clientes registrados</h4>
+                        <p>Comience registrando su primer cliente</p>
+                        <a asp-action="Create" class="btn btn-primary">Registrar Primer Cliente</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación para eliminar -->
+<div class="modal fade" id="modalEliminar" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar al cliente <strong id="nombreClienteEliminar"></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form asp-action="Delete" method="post" style="display: inline;">
+                    <input type="hidden" id="clienteIdEliminar" name="id" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmarEliminar(clienteId, nombreCliente) {
+            $('#clienteIdEliminar').val(clienteId);
+            $('#nombreClienteEliminar').text(nombreCliente);
+            $('#modalEliminar').modal('show');
+        }
+    </script>
+}

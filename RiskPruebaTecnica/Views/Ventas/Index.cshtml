@@ -1,0 +1,73 @@
+<!-- Views/Ventas/Index.cshtml -->
+@model IEnumerable<VentaDto>
+@{
+    ViewData["Title"] = "Listado de Ventas";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Listado de Ventas</h2>
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Nueva Venta
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Ventas Registradas</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.Any())
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Usuario</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var venta in Model)
+                            {
+                                <tr>
+                                    <td>@venta.FechaVenta.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>@venta.ClienteNombre</td>
+                                    <td>@venta.UsuarioNombre</td>
+                                    <td class="text-end fw-bold">$@venta.Total.ToString("N0")</td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@venta.Id" class="btn btn-sm btn-primary">
+                                            Ver Detalle
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-info">
+                                <th colspan="3">TOTAL DEL DÍA</th>
+                                <th class="text-end">$@Model.Sum(v => v.Total).ToString("N0")</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-info text-center">
+                        <h4>No hay ventas registradas</h4>
+                        <p>Comience creando su primera venta</p>
+                        <a asp-action="Create" class="btn btn-primary">Crear Primera Venta</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
