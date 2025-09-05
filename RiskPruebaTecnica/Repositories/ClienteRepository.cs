@@ -12,10 +12,6 @@ public class ClienteRepository : GenericRepository<Cliente>, IClienteRepository
     {
         var cliente = await _dbSet
             .FirstOrDefaultAsync(c => c.NumeroIdentificacion == numeroIdentificacion);
-
-        if (cliente == null)
-            throw new InvalidOperationException($"Cliente with NumeroIdentificacion '{numeroIdentificacion}' not found.");
-
         return cliente;
     }
 

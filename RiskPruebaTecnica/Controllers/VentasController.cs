@@ -138,7 +138,7 @@ public class VentasController : Controller
 
     // POST: Crear cliente rápido desde venta
     [HttpPost]
-    public async Task<JsonResult> CrearClienteRapido(ClienteDto cliente)
+    public async Task<JsonResult> CrearClienteRapido([FromBody] ClienteDto cliente)
     {
         try
         {

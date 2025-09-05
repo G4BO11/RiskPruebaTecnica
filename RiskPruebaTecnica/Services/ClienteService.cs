@@ -18,8 +18,17 @@ public class ClienteService : IClienteService
 
     public async Task<ClienteDto> GetByNumeroIdentificacionAsync(string numeroIdentificacion)
     {
-        var cliente = await _clienteRepository.GetByNumeroIdentificacionAsync(numeroIdentificacion);
-        return cliente == null ? null : MapToDto(cliente);
+        try
+        {
+            var cliente = await _clienteRepository.GetByNumeroIdentificacionAsync(numeroIdentificacion);
+            return cliente == null ? null : MapToDto(cliente);
+        }
+        catch (Exception error)
+        {
+            //! Cambiar por un logger
+            Console.WriteLine($"Error al buscar cliente {numeroIdentificacion}: {error.Message}");
+            return null;
+        }
     }
 
     public async Task<IEnumerable<ClienteDto>> GetAllAsync()
