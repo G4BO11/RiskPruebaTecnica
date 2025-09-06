@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace RiskPruebaTecnica.Controllers
 {
@@ -41,8 +40,14 @@ namespace RiskPruebaTecnica.Controllers
                 return View(model);
             }
 
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Email o contraseña incorrectos.");
+                return View(model);
+            }
             var result = await _signInManager.PasswordSignInAsync(
-                model.Email,
+                user.UserName,
                 model.Password,
                 model.RememberMe,
                 lockoutOnFailure: false);
