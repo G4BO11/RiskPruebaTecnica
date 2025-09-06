@@ -29,7 +29,7 @@
                 </div>
 
                 <div id="clienteInfo" style="display: none;">
-                    <div class="alert alert-success">
+                    <div class="alert alert-success alert-clienteNoEncontrado">
                         <strong>Cliente encontrado:</strong>
                         <span id="clienteNombre"></span>
                         <input type="hidden" id="clienteId" name="ClienteId">
@@ -37,7 +37,7 @@
                 </div>
 
                 <div id="clienteNoEncontrado" style="display: none;">
-                    <div class="alert alert-warning">
+                    <div class="alert alert-warning alert-clienteNoEncontrado">
                         Cliente no encontrado.
                         <button type="button" id="registrarCliente" class="btn btn-sm btn-outline-primary">Registrar
                             Nuevo</button>
@@ -116,7 +116,7 @@
     </div>
 </div>
 
-<!-- Modal para registro rápido de cliente -->
+
 <div class="modal fade" id="modalClienteNuevo" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -126,7 +126,7 @@
             </div>
             <div class="modal-body">
                 <form id="formClienteNuevo">
-                    <input type="number" id="nuevoNumeroIdentificacion">
+                    <input type="hidden" id="nuevoNumeroIdentificacion">
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
                         <input type="text" id="nuevoNombre" class="form-control" required>

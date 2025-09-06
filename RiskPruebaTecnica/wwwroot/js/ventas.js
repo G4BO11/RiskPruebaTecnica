@@ -57,7 +57,7 @@ class VentaManager {
   mostrarClienteNoEncontrado(numeroIdentificacion) {
     $("#nuevoNumeroIdentificacion").val(numeroIdentificacion);
     $("#clienteInfo").hide();
-    $("#clienteNoEncontrado").show();
+    $("#clienteNoEncontrado").css("display", "flex").show();
     this.clienteSeleccionado = null;
     this.validarFormularioVenta();
   }
@@ -68,115 +68,54 @@ class VentaManager {
     $("#modalClienteNuevo").modal("show");
   }
 
-//   async guardarClienteNuevo() {
-//     const clienteData = {
-//       NumeroIdentificacion: $("#nuevoNumeroIdentificacion").val(),
-//       Nombre: $("#nuevoNombre").val(),
-//       Apellido: $("#nuevoApellido").val(),
-//       Direccion: $("#nuevaDireccion").val(),
-//       Telefono: $("#nuevoTelefono").val(),
-//       Email: $("#nuevoEmail").val(),
-//     };
-
-//     // Validaciones básicas
-//     if (
-//       !clienteData.Nombre ||
-//       !clienteData.Apellido ||
-//       !clienteData.NumeroIdentificacion
-//     ) {
-//       alert("Complete los campos obligatorios");
-//       return;
-//     }
-
-//     try {
-//       const response = await fetch("/Ventas/CrearClienteRapido", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           RequestVerificationToken: $(
-//             'input[name="__RequestVerificationToken"]'
-//           ).val(),
-//         },
-//         body: JSON.stringify(clienteData),
-//       });
-
-//       const result = await response.json();
-
-//       if (result.success) {
-//         this.mostrarClienteEncontrado(result.cliente);
-//         $("#modalClienteNuevo").modal("hide");
-//         this.limpiarFormularioCliente();
-//         alert("Cliente registrado exitosamente");
-//       } else {
-//         alert("Error: " + result.error);
-//       }
-//     } catch (error) {
-//       console.error("Error guardando cliente:", error);
-//       alert("Error al guardar cliente");
-//     }
-//   }
-
-async guardarClienteNuevo() {
+  async guardarClienteNuevo() {
     const clienteData = {
-        NumeroIdentificacion: $('#nuevoNumeroIdentificacion').val(),
-        Nombre: $('#nuevoNombre').val(),
-        Apellido: $('#nuevoApellido').val(),
-        Direccion: $('#nuevaDireccion').val(),
-        Telefono: $('#nuevoTelefono').val(),
-        Email: $('#nuevoEmail').val()
+      NumeroIdentificacion: $("#nuevoNumeroIdentificacion").val(),
+      Nombre: $("#nuevoNombre").val(),
+      Apellido: $("#nuevoApellido").val(),
+      Direccion: $("#nuevaDireccion").val(),
+      Telefono: $("#nuevoTelefono").val(),
+      Email: $("#nuevoEmail").val(),
     };
 
-    // 🔍 DEBUG: Verificar todos los valores
-    console.log('📋 Datos del cliente a crear:');
-    console.log('🆔 NumeroIdentificacion:', clienteData.NumeroIdentificacion);
-    console.log('👤 Nombre:', clienteData.Nombre);
-    console.log('👤 Apellido:', clienteData.Apellido);
-    console.log('🏠 Direccion:', clienteData.Direccion);
-    console.log('📞 Telefono:', clienteData.Telefono);
-    console.log('📧 Email:', clienteData.Email);
-    console.log('📦 Objeto completo:', clienteData);
-
     // Validaciones básicas
-    if (!clienteData.Nombre || !clienteData.Apellido || !clienteData.NumeroIdentificacion) {
-        console.log('❌ Faltan campos obligatorios:');
-        console.log('- Nombre:', clienteData.Nombre ? '✅' : '❌');
-        console.log('- Apellido:', clienteData.Apellido ? '✅' : '❌');
-        console.log('- NumeroIdentificacion:', clienteData.NumeroIdentificacion ? '✅' : '❌');
-        
-        alert('Complete los campos obligatorios');
-        return;
+    if (
+      !clienteData.Nombre ||
+      !clienteData.Apellido ||
+      !clienteData.NumeroIdentificacion
+    ) {
+      alert("Complete los campos obligatorios");
+      return;
     }
 
     try {
-        console.log('🚀 Enviando request a servidor...');
-        
-        const response = await fetch('/Ventas/CrearClienteRapido', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
-            },
-            body: JSON.stringify(clienteData)
-        });
+      const response = await fetch("/Ventas/CrearClienteRapido", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          RequestVerificationToken: $(
+            'input[name="__RequestVerificationToken"]'
+          ).val(),
+        },
+        body: JSON.stringify(clienteData),
+      });
 
-        console.log('📡 Response status:', response.status);
-        const result = await response.json();
-        console.log('📦 Respuesta del servidor:', result);
+      const result = await response.json();
 
-        if (result.success) {
-            this.mostrarClienteEncontrado(result.cliente);
-            $('#modalClienteNuevo').modal('hide');
-            this.limpiarFormularioCliente();
-            alert('Cliente registrado exitosamente');
-        } else {
-            console.log('❌ Error del servidor:', result.error);
-            alert('Error: ' + result.error);
-        }
+      if (result.success) {
+        this.mostrarClienteEncontrado(result.cliente);
+        $("#modalClienteNuevo").modal("hide");
+        this.limpiarFormularioCliente();
+        alert("Cliente registrado exitosamente");
+      } else {
+        alert("Error: " + result.error);
+      }
     } catch (error) {
-        console.error('💥 Error guardando cliente:', error);
-        alert('Error al guardar cliente');
+      console.error("Error guardando cliente:", error);
+      alert("Error al guardar cliente");
     }
-}
+  }
+
 
   async validarStockProducto() {
     const productoId = $("#productoSelect").val();
