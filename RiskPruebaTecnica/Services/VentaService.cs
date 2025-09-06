@@ -123,4 +123,11 @@ public class VentaService : IVentaService
             }).ToList() ?? new List<DetalleVentaDto>()
         };
     }
+
+    public async Task<IEnumerable<VentaDto>> GetVentasInRange(DateTime startDate, DateTime endDate)
+    {
+        var ventas = await _ventaRepository.GetAllAsync();
+        var filteredVentas = ventas.Where(v => v.FechaVenta >= startDate && v.FechaVenta <= endDate);
+        return filteredVentas.Select(MapToDto);
+    }
 }

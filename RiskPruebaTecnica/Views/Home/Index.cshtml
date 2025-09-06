@@ -74,6 +74,38 @@
     </div>
 </section>
 
+<div class="homeSection-title">
+    <h2>Reportes</h2>
+</div>
+
+<section class="cont-section mb-4">
+    <div class="card">
+        <div class="card-body">
+            <form id="reportForm" class="row g-3">
+                <div class="col-md-6">
+                    <label for="timeRange" class="form-label">Rango de Tiempo</label>
+                    <select class="form-select" id="timeRange" name="timeRange">
+                        <option value="daily">Diario</option>
+                        <option value="weekly">Semanal</option>
+                        <option value="monthly">Mensual</option>
+                        <option value="yearly">Anual</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="format" class="form-label">Formato</label>
+                    <select class="form-select" id="format" name="format">
+                        <option value="excel">Excel</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button type="button" onclick="generateReport()" class="btn btn-primary">Generar Reporte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
 @if (Model.UltimasVentas.Any())
 {
     <div class="row">
