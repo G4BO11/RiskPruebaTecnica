@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using RiskPruebaTecnica.Services.interfaces;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using ClosedXML.Excel;
@@ -16,10 +15,10 @@ namespace RiskPruebaTecnica.Controllers
             _ventaService = ventaService;
         }
 
-        public IActionResult GenerateReport(string format, string timeRange)
+        public async Task<IActionResult> GenerateReport(string format, string timeRange)
         {
             var (startDate, endDate) = GetDateRange(timeRange);
-            var ventas = _ventaService.GetVentasInRange(startDate, endDate);
+            var ventas = await _ventaService.GetVentasInRange(startDate, endDate);
 
             if (format.ToLower() == "excel")
             {
