@@ -35,14 +35,12 @@ public class VentaService : IVentaService
         return ventas.Select(MapToDto);
     }
 
-    public async Task<VentaDto> CrearVentaAsync(Guid usuarioId, Guid clienteId, List<DetalleVentaRequest> detalles)
+    public async Task<VentaDto> CrearVentaAsync(string usuarioId, Guid clienteId, List<DetalleVentaRequest> detalles)
     {
         // !Convertir este proceso en una trasacción si el repositorio lo soporta
-        // 1. Validar que hay productos en la venta
         if (!detalles.Any())
             throw new InvalidOperationException("La venta debe tener al menos un producto");
 
-        // 2. Validar stock de todos los productos ANTES de crear la venta
         foreach (var detalle in detalles)
         {
             var tieneStock = await _productoService.ValidarStockAsync(detalle.ProductoId, detalle.Cantidad);
@@ -53,20 +51,17 @@ public class VentaService : IVentaService
             }
         }
 
-        // 3. Calcular total
         var total = await CalcularTotalVentaAsync(detalles);
 
-        // 4. Crear la venta
         var venta = new Venta
         {
-            UsuarioId = usuarioId,
+            UserId = usuarioId,
             ClienteId = clienteId,
             FechaVenta = DateTime.UtcNow,
             Total = total,
             DetallesVenta = new List<DetalleVenta>()
         };
 
-        // 5. Crear detalles de venta
         foreach (var detalleRequest in detalles)
         {
             var producto = await _productoRepository.GetByIdAsync(detalleRequest.ProductoId);
@@ -118,7 +113,7 @@ public class VentaService : IVentaService
             FechaVenta = venta.FechaVenta,
             Total = venta.Total,
             ClienteNombre = venta.Cliente != null ? $"{venta.Cliente.Nombre} {venta.Cliente.Apellido}" : "",
-            UsuarioNombre = venta.Usuario?.NombreUsuario ?? "",
+            UsuarioNombre = venta.User?.UserName ?? "",
             Detalles = venta.DetallesVenta?.Select(d => new DetalleVentaDto
             {
                 ProductoNombre = d.Producto?.Nombre ?? "",

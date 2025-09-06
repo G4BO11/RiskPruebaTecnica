@@ -10,7 +10,7 @@ public class VentaRepository : GenericRepository<Venta>, IVentaRepository
     {
         return await _dbSet
             .Include(v => v.Cliente)
-            .Include(v => v.Usuario)
+            .Include(v => v.User)
             .Where(v => v.FechaVenta.Date == fecha.Date)
             .ToListAsync();
     }
@@ -19,7 +19,7 @@ public class VentaRepository : GenericRepository<Venta>, IVentaRepository
     {
         return await _dbSet
             .Include(v => v.Cliente)
-            .Include(v => v.Usuario)
+            .Include(v => v.User)
             .Where(v => v.FechaVenta.Date >= fechaInicio.Date && v.FechaVenta.Date <= fechaFin.Date)
             .ToListAsync();
     }
@@ -28,7 +28,7 @@ public class VentaRepository : GenericRepository<Venta>, IVentaRepository
     {
         var venta = await _dbSet
             .Include(v => v.Cliente)
-            .Include(v => v.Usuario)
+            .Include(v => v.User)
             .Include(v => v.DetallesVenta)
                 .ThenInclude(d => d.Producto)
             .FirstOrDefaultAsync(v => v.Id == ventaId);

@@ -12,7 +12,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
-    // Configuración de passwords - relajada para desarrollo
     options.Password.RequiredLength = 6;
     options.Password.RequireDigit = false;
     options.Password.RequireUppercase = true;
@@ -30,19 +29,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IVentaRepository, VentaRepository>();
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<IVentaService, VentaService>();
-builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    SeedData.Initialize(context);
+    SeedData.Initialize(scope.ServiceProvider);
 }
 
 if (!app.Environment.IsDevelopment())

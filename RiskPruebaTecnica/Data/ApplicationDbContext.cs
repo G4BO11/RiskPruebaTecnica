@@ -8,7 +8,6 @@ public class ApplicationDbContext : IdentityDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Producto> Productos { get; set; }
     public DbSet<Venta> Ventas { get; set; }
@@ -17,14 +16,6 @@ public class ApplicationDbContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<Usuario>(entity =>
-        {
-            entity.Property(e => e.Id).HasDefaultValueSql("gen_random_uuid()");
-            entity.Property(e => e.NombreUsuario).IsRequired().HasMaxLength(50);
-            entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
-            entity.HasIndex(e => e.Email).IsUnique();
-        });
 
         modelBuilder.Entity<Cliente>(entity =>
         {
@@ -49,9 +40,10 @@ public class ApplicationDbContext : IdentityDbContext
             entity.Property(e => e.Id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.Total).HasColumnType("decimal(18,2)");
 
-            entity.HasOne(v => v.Usuario)
-                .WithMany(u => u.Ventas)
-                .HasForeignKey(v => v.UsuarioId);
+            entity.HasOne(v => v.User)
+                .WithMany()
+                .HasForeignKey(v => v.UserId);
+
             entity.HasOne(v => v.Cliente)
                 .WithMany(c => c.Ventas)
                 .HasForeignKey(v => v.ClienteId);

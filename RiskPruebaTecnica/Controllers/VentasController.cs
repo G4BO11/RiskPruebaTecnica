@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 public class VentasController : Controller
@@ -5,18 +6,18 @@ public class VentasController : Controller
     private readonly IVentaService _ventaService;
     private readonly IClienteService _clienteService;
     private readonly IProductoService _productoService;
-    private readonly IUsuarioService _usuarioService;
+    private readonly UserManager<IdentityUser> _userManager;
 
     public VentasController(
         IVentaService ventaService,
         IClienteService clienteService,
         IProductoService productoService,
-        IUsuarioService usuarioService)
+        UserManager<IdentityUser> userManager)
     {
         _ventaService = ventaService;
         _clienteService = clienteService;
         _productoService = productoService;
-        _usuarioService = usuarioService;
+        _userManager = userManager;
     }
 
     public async Task<IActionResult> Index()
@@ -38,7 +39,7 @@ public class VentasController : Controller
         try
         {
             // El código que ya tienes...
-            var usuario = await _usuarioService.GetByEmailAsync("admin@supermercado.com");
+            var usuario = await _userManager.FindByEmailAsync("admin@supermercado.com");
             if (usuario == null)
                 return Json(new { success = false, error = "Usuario no encontrado" });
 
