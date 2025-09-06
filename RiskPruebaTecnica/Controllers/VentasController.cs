@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
+[Authorize]
 public class VentasController : Controller
 {
     private readonly IVentaService _ventaService;
@@ -38,16 +40,15 @@ public class VentasController : Controller
     {
         try
         {
-            // El código que ya tienes...
-            var usuario = await _userManager.FindByEmailAsync("admin@supermercado.com");
-            if (usuario == null)
-                return Json(new { success = false, error = "Usuario no encontrado" });
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+                return Json(new { success = false, error = "Usuario no autenticado" });
 
             var cliente = await _clienteService.GetByIdAsync(ventaRequest.ClienteId);
             if (cliente == null)
                 return Json(new { success = false, error = "Cliente no encontrado" });
 
-            var ventaCreada = await _ventaService.CrearVentaAsync(usuario.Id, cliente.Id, ventaRequest.Detalles);
+            var ventaCreada = await _ventaService.CrearVentaAsync(currentUser.Id, cliente.Id, ventaRequest.Detalles);
 
             return Json(new
             {

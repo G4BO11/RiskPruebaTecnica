@@ -27,18 +27,29 @@
 
             </div>
             <ul class="header-navbar-nav">
-                <li class="header-navbar-nav--item">
-                    <a asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
-                </li>
-                <li class="header-navbar-nav--item">
-                    <a asp-area="" asp-controller="Ventas" asp-action="Index">Ventas</a>
-                </li>
-                <li class="header-navbar-nav--item">
-                    <a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
-                </li>
-                <li class="header-navbar-nav--item">
-                    <a asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
-                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="header-navbar-nav--item">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
+                    </li>
+                    <li class="header-navbar-nav--item">
+                        <a asp-area="" asp-controller="Ventas" asp-action="Index">Ventas</a>
+                    </li>
+                    <li class="header-navbar-nav--item">
+                        <a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                    </li>
+                    <li class="header-navbar-nav--item">
+                        <a asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="header-navbar-nav--item">
+                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </a>
+                    </li>
+                }
             </ul>
         </nav>
     </header>
