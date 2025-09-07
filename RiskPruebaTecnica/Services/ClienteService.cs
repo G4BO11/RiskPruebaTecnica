@@ -25,7 +25,6 @@ public class ClienteService : IClienteService
         }
         catch (Exception error)
         {
-            //! Cambiar por un logger
             Console.WriteLine($"Error al buscar cliente {numeroIdentificacion}: {error.Message}");
             return null;
         }
@@ -39,7 +38,7 @@ public class ClienteService : IClienteService
 
     public async Task<ClienteDto> CreateAsync(ClienteDto clienteDto)
     {
-        // Validar que no existe
+
         if (await _clienteRepository.ExistsByNumeroIdentificacionAsync(clienteDto.NumeroIdentificacion))
         {
             throw new InvalidOperationException($"Ya existe un cliente con identificación {clienteDto.NumeroIdentificacion}");

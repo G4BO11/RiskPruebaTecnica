@@ -37,7 +37,7 @@ public class VentaService : IVentaService
 
     public async Task<VentaDto> CrearVentaAsync(string usuarioId, Guid clienteId, List<DetalleVentaRequest> detalles)
     {
-        // !Convertir este proceso en una trasacción si el repositorio lo soporta
+        // ! Convertir este proceso en una trasacción si el repositorio lo soporta
         if (!detalles.Any())
             throw new InvalidOperationException("La venta debe tener al menos un producto");
 

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using ClosedXML.Excel;
-using System.Data;
 
 namespace RiskPruebaTecnica.Controllers
 {
@@ -64,12 +63,10 @@ namespace RiskPruebaTecnica.Controllers
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Reporte de Ventas");
 
-            // Headers
             worksheet.Cell(1, 1).Value = "Fecha";
             worksheet.Cell(1, 2).Value = "Cliente";
             worksheet.Cell(1, 3).Value = "Total";
 
-            // Data
             var row = 2;
             foreach (var venta in ventas)
             {
@@ -79,7 +76,6 @@ namespace RiskPruebaTecnica.Controllers
                 row++;
             }
 
-            // Format
             worksheet.Columns().AdjustToContents();
 
             using var stream = new MemoryStream();
@@ -101,24 +97,21 @@ namespace RiskPruebaTecnica.Controllers
 
             document.Open();
 
-            // Title
             var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
             var title = new Paragraph($"Reporte de Ventas - {timeRange}", titleFont);
             title.Alignment = Element.ALIGN_CENTER;
             document.Add(title);
             document.Add(new Paragraph("\n"));
 
-            // Table
+
             var table = new PdfPTable(3);
             table.WidthPercentage = 100;
 
-            // Headers
             var headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
             table.AddCell(new PdfPCell(new Phrase("Fecha", headerFont)));
             table.AddCell(new PdfPCell(new Phrase("Cliente", headerFont)));
             table.AddCell(new PdfPCell(new Phrase("Total", headerFont)));
 
-            // Data
             var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             foreach (var venta in ventas)
             {

@@ -84,7 +84,6 @@ public class ClientesController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // AJAX: Buscar cliente por identificación (para el proceso de venta)
     [HttpGet]
     public async Task<JsonResult> BuscarPorIdentificacion(string numeroIdentificacion)
     {

@@ -1,4 +1,3 @@
-// Repositories/GenericRepository.cs
 using Microsoft.EntityFrameworkCore;
 using RiskPruebaTecnica.Data;
 using RiskPruebaTecnica.Repositories;

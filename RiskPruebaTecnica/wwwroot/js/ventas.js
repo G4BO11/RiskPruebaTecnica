@@ -7,7 +7,6 @@ class VentaManager {
   }
 
   initializeEvents() {
-    // Eventos principales
     $("#buscarCliente").click(() => this.buscarCliente());
     $("#numeroIdentificacion").keypress((e) => {
       if (e.which === 13) this.buscarCliente();
@@ -17,7 +16,6 @@ class VentaManager {
     $("#agregarProducto").click(() => this.agregarProducto());
     $("#procesarVenta").click(() => this.procesarVenta());
 
-    // Validar cantidad al cambiar producto
     $("#productoSelect").change(() => this.validarStockProducto());
     $("#cantidad").keyup(() => this.validarStockProducto());
   }
@@ -78,7 +76,6 @@ class VentaManager {
       Email: $("#nuevoEmail").val(),
     };
 
-    // Validaciones básicas
     if (
       !clienteData.Nombre ||
       !clienteData.Apellido ||
@@ -156,7 +153,6 @@ class VentaManager {
       return;
     }
 
-    // Verificar si el producto ya está en la venta
     const productoExistente = this.productosEnVenta.find(
       (p) => p.productoId === productoId
     );
@@ -248,7 +244,6 @@ class VentaManager {
       $("#procesarVenta").prop("disabled", true).text("Procesando...");
 
       const response = await fetch("/Ventas/CreateJson", {
-        // ← Cambiar URL
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -264,7 +259,7 @@ class VentaManager {
 
       if (result.success) {
         alert(result.message);
-        window.location.href = "/Ventas"; // Esto funcionará una vez que creemos la vista
+        window.location.href = "/Ventas";
       } else {
         alert("Error: " + result.error);
       }

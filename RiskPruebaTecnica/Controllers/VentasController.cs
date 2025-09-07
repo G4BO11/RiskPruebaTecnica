@@ -103,7 +103,6 @@ public class VentasController : Controller
         });
     }
 
-    // AJAX: Obtener información del producto
     [HttpGet]
     public async Task<JsonResult> ObtenerProducto(Guid productoId)
     {
@@ -124,7 +123,6 @@ public class VentasController : Controller
         });
     }
 
-    // AJAX: Validar stock antes de agregar producto
     [HttpGet]
     public async Task<JsonResult> ValidarStock(Guid productoId, int cantidad)
     {
@@ -138,7 +136,6 @@ public class VentasController : Controller
         });
     }
 
-    // POST: Crear cliente rápido desde venta
     [HttpPost]
     public async Task<JsonResult> CrearClienteRapido([FromBody] ClienteDto cliente)
     {
