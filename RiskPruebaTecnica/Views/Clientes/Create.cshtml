@@ -31,7 +31,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label asp-for="Email" class="form-label">Email</label>
-                                <input asp-for="Email" type="email" class="form-control" required />
+                                <input asp-for="Email" type="email" class="form-control"
+                                    pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$" required />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
@@ -58,7 +59,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label asp-for="Telefono" class="form-label">Teléfono</label>
-                                <input asp-for="Telefono" class="form-control" required />
+                                <input asp-for="Telefono" class="form-control" required type="tel"
+                                    pattern="[0-9]{7,10}" />
                                 <span asp-validation-for="Telefono" class="text-danger"></span>
                             </div>
                         </div>

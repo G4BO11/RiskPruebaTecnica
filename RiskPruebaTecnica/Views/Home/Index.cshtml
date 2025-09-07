@@ -33,76 +33,79 @@
         <p>Productos Bajo Stock</p>
     </div>
 </section>
+<section class="section-group">
+    <div class="section-group--item">
+        <div class="homeSection-title gestion">
+            <h2>Gestión (Acciones Rápidas)</h2>
+        </div>
+        <section class="cont-section">
+            <div class="contButton btn-newSale">
+                <a asp-controller="Ventas" asp-action="Create" class="contButton--item">
+                    <svg xmlns=" http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="currentColor">
+                        <path
+                            d="M200-80q-33 0-56.5-23.5T120-160v-480q0-33 23.5-56.5T200-720h80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720h80q33 0 56.5 23.5T840-640v480q0 33-23.5 56.5T760-80H200Zm160-640h240q0-50-35-85t-85-35q-50 0-85 35t-35 85Zm119 320q74 0 134-49t59-110q0-17-11-29t-28-12q-14 0-25 9t-16 27q-11 38-43 61t-70 23q-38 0-70.5-23T366-564q-5-19-15-27.5t-24-8.5q-17 0-28.5 12T287-559q0 61 59 110t133 49Z" />
+                    </svg>
+                    <p>Nueva Venta</p>
+                </a>
+            </div>
 
-<div class="homeSection-title gestion">
-    <h2>Gestión (Acciones Rápidas)</h2>
-</div>
-
-<section class="cont-section">
-    <div class="contButton btn-newSale">
-        <a asp-controller="Ventas" asp-action="Create" class="contButton--item">
-            <svg xmlns=" http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                fill="currentColor">
-                <path
-                    d="M200-80q-33 0-56.5-23.5T120-160v-480q0-33 23.5-56.5T200-720h80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720h80q33 0 56.5 23.5T840-640v480q0 33-23.5 56.5T760-80H200Zm160-640h240q0-50-35-85t-85-35q-50 0-85 35t-35 85Zm119 320q74 0 134-49t59-110q0-17-11-29t-28-12q-14 0-25 9t-16 27q-11 38-43 61t-70 23q-38 0-70.5-23T366-564q-5-19-15-27.5t-24-8.5q-17 0-28.5 12T287-559q0 61 59 110t133 49Z" />
-            </svg>
-            <p>Nueva Venta</p>
-        </a>
+            <div class="contButton-group">
+                <div class="contButton">
+                    <a asp-controller="Productos" asp-action="Create" class="contButton--item">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="currentColor">
+                            <path
+                                d="M440-91v-366L120-642v321q0 22 10.5 40t29.5 29L440-91Zm80 0 280-161q19-11 29.5-29t10.5-40v-321L520-457v366Zm159-550 118-69-277-159q-19-11-40-11t-40 11l-79 45 318 183ZM480-526l119-68-317-184-120 69 318 183Z" />
+                        </svg>
+                        <p>Nuevo Producto</p>
+                    </a>
+                </div>
+                <div class="contButton">
+                    <a asp-controller="Clientes" asp-action="Create" class="contButton--item">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="currentColor">
+                            <path
+                                d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-240v-32q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v32q0 33-23.5 56.5T720-160H240q-33 0-56.5-23.5T160-240Z" />
+                        </svg>
+                        <p>Nuevo Cliente</p>
+                    </a>
+                </div>
+            </div>
+        </section>
     </div>
-
-    <div class="contButton-group">
-        <div class="contButton">
-            <a asp-controller="Productos" asp-action="Create" class="contButton--item">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                    fill="currentColor">
-                    <path
-                        d="M440-91v-366L120-642v321q0 22 10.5 40t29.5 29L440-91Zm80 0 280-161q19-11 29.5-29t10.5-40v-321L520-457v366Zm159-550 118-69-277-159q-19-11-40-11t-40 11l-79 45 318 183ZM480-526l119-68-317-184-120 69 318 183Z" />
-                </svg>
-                <p>Nuevo Producto</p>
-            </a>
+    <div class="section-group--item">
+        <div class="homeSection-title reportes">
+            <h2>Reportes</h2>
         </div>
-        <div class="contButton">
-            <a asp-controller="Clientes" asp-action="Create" class="contButton--item">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                    fill="currentColor">
-                    <path
-                        d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-240v-32q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v32q0 33-23.5 56.5T720-160H240q-33 0-56.5-23.5T160-240Z" />
-                </svg>
-                <p>Nuevo Cliente</p>
-            </a>
-        </div>
-    </div>
-</section>
-
-<div class="homeSection-title">
-    <h2>Reportes</h2>
-</div>
-
-<section class="cont-section mb-4">
-    <div class="card">
-        <div class="card-body">
-            <form id="reportForm" class="row g-3">
-                <div class="col-md-6">
-                    <label for="timeRange" class="form-label">Rango de Tiempo</label>
-                    <select class="form-select" id="timeRange" name="timeRange">
-                        <option value="daily">Diario</option>
-                        <option value="weekly">Semanal</option>
-                        <option value="monthly">Mensual</option>
-                        <option value="yearly">Anual</option>
-                    </select>
+        <section class="cont-section">
+            <div class="card dashed">
+                <div class="card-body">
+                    <form id="reportForm" class="row g-3">
+                        <div class="col-md-6">
+                            <label for="timeRange" class="form-label">Rango de Tiempo</label>
+                            <select class="form-select" id="timeRange" name="timeRange">
+                                <option value="daily">Diario</option>
+                                <option value="weekly">Semanal</option>
+                                <option value="monthly">Mensual</option>
+                                <option value="yearly">Anual</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="format" class="form-label">Formato</label>
+                            <select class="form-select" id="format" name="format">
+                                <option value="excel">Excel</option>
+                                <option value="pdf">PDF</option>
+                            </select>
+                        </div>
+                        <div class="contButton generar-reporte col-12">
+                            <button type="button" onclick="generateReport()" class="btn contButton--item">Generar
+                                Reporte</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-md-6">
-                    <label for="format" class="form-label">Formato</label>
-                    <select class="form-select" id="format" name="format">
-                        <option value="excel">Excel</option>
-                        <option value="pdf">PDF</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <button type="button" onclick="generateReport()" class="btn btn-primary">Generar Reporte</button>
-                </div>
-            </form>
-        </div>
+            </div>
+        </section>
     </div>
 </section>
 

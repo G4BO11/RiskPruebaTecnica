@@ -1,4 +1,3 @@
-<!-- Views/Ventas/Create.cshtml -->
 @model VentaRequest
 @{
     ViewData["Title"] = "Nueva Venta";
@@ -116,46 +115,147 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="modalClienteNuevo" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Registrar Nuevo Cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-user-plus"></i> Registrar Nuevo Cliente
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="formClienteNuevo">
-                    <input type="hidden" id="nuevoNumeroIdentificacion">
-                    <div class="mb-3">
-                        <label class="form-label">Nombre</label>
-                        <input type="text" id="nuevoNombre" class="form-control" required>
+                <form id="formClienteNuevo" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Número de Identificación <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" id="nuevoNumeroIdentificacion" class="form-control" required
+                                    pattern="[0-9]{6,20}" maxlength="20" placeholder="Ej: 1234567890"
+                                    title="Solo números, entre 6 y 20 dígitos">
+                                <div class="invalid-feedback">
+                                    La identificación debe tener entre 6 y 20 dígitos
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Email <span class="text-danger">*</span>
+                                </label>
+                                <input type="email" id="nuevoEmail" class="form-control" required maxlength="100"
+                                    placeholder="correo@ejemplo.com" pattern="[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$">
+                                <div class="invalid-feedback">
+                                    Ingrese un email válido
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Apellido</label>
-                        <input type="text" id="nuevoApellido" class="form-control" required>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Nombre <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" id="nuevoNombre" class="form-control" required
+                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}" maxlength="50" placeholder="Ej: Juan Carlos"
+                                    title="Solo letras, entre 2 y 50 caracteres">
+                                <div class="invalid-feedback">
+                                    El nombre solo debe contener letras (2-50 caracteres)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Apellido <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" id="nuevoApellido" class="form-control" required
+                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}" maxlength="50"
+                                    placeholder="Ej: Pérez González" title="Solo letras, entre 2 y 50 caracteres">
+                                <div class="invalid-feedback">
+                                    El apellido solo debe contener letras (2-50 caracteres)
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Dirección</label>
-                        <input type="text" id="nuevaDireccion" class="form-control" required>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Teléfono <span class="text-danger">*</span>
+                                </label>
+                                <input type="tel" id="nuevoTelefono" class="form-control" required pattern="[0-9]{7,10}"
+                                    maxlength="10" placeholder="Ej: 3001234567"
+                                    title="Solo números, entre 7 y 10 dígitos">
+                                <div class="invalid-feedback">
+                                    El teléfono debe tener entre 7 y 10 dígitos
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Dirección <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" id="nuevaDireccion" class="form-control" required minlength="5"
+                                    maxlength="200" placeholder="Ej: Calle 123 #45-67">
+                                <div class="invalid-feedback">
+                                    La dirección debe tener entre 5 y 200 caracteres
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Teléfono</label>
-                        <input type="tel" id="nuevoTelefono" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" id="nuevoEmail" class="form-control" required>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        Todos los campos marcados con <span class="text-danger">*</span> son obligatorios
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" id="guardarCliente" class="btn btn-primary">Guardar Cliente</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" id="guardarCliente" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar Cliente
+                </button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Restricción de entrada en tiempo real para el modal
+        $('#modalClienteNuevo').on('shown.bs.modal', function () {
+            $('#nuevoNumeroIdentificacion, #nuevoTelefono').on('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+            $('#nuevoNombre, #nuevoApellido').on('input', function () {
+                this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+            });
+
+            $('#formClienteNuevo input').on('blur', function () {
+                if (this.checkValidity()) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                }
+            });
+        });
+
+        $('#modalClienteNuevo').on('hidden.bs.modal', function () {
+            $('#formClienteNuevo')[0].reset();
+            $('#formClienteNuevo input').removeClass('is-valid is-invalid');
+        });
+    });
+</script>
 
 @section Scripts {
     <script src="~/js/ventas.js"></script>

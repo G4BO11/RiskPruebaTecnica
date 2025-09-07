@@ -130,6 +130,29 @@ p,h2, a{
 .contButton.btn-newSale{
     background-color: hsl(205, 100%, 40%, 0.8);
 }
-.homeSection-title.gestion h2{
+.homeSection-title.gestion h2, .homeSection-title.reportes h2{
     font-size: 20px;
+}
+.section-group{
+    display: flex;
+    width: 100%;
+    gap: 48px;
+}
+.section-group--item{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.card.dashed{
+    border: 2px dashed hsl(205, 100%, 40%, 0.8);
+    background-color: hsl(205, 100%, 40%, 0.175);
+}
+.card.dashed label{
+    color: hsl(205, 100%, 40%);
+    font-weight: 500;
+}
+.contButton.generar-reporte{
+    height: fit-content;
+    min-height: 0;
+    padding: 4px;
 }

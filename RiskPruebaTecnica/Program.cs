@@ -33,6 +33,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Logout";
     options.AccessDeniedPath = "/Account/AccessDenied";
+
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.SlidingExpiration = true;
+
+    // ? Esto es para que la session o cookie no sea persistente
+    options.Cookie.IsEssential = true;
 });
 
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();

@@ -16,7 +16,7 @@ header{
 
 .header-navbar-nav{
   display: flex;
-  background-color: hsl(212, 90%, 80%);
+  background-color: hsl(212, 90%, 60%, 0.2);
   border-radius: 24px;
   padding: 6px 8px;
   gap: 8px;
@@ -26,6 +26,10 @@ header{
 .header-navbar a{
   text-decoration: none;
 }
+.header-navbar .header-navbar-nav--item a{
+  text-decoration: none;
+  color: hsl(205, 100%, 45%);
+}
 .header-navbar-titulo{
   font-size: 18px;
   text-transform: uppercase;
@@ -33,11 +37,11 @@ header{
   letter-spacing: -.20px;
 }
 .header-navbar-nav--item{
-background-color: rgba(255, 255, 255, 0.8);
-padding: 4px 16px;
-border-radius: 24px;
-font-weight: 500;
-transform: all .3s ease-in-out;
+  background-color: hsla(205, 100%, 45%, 0.15);
+  padding: 4px 16px;
+  border-radius: 24px;
+  font-weight: 500;
+  transition: all .3s ease-in-out;
 }
 
 .header-navbar-nav--item:hover{
