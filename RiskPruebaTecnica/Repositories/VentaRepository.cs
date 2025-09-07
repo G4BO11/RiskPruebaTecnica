@@ -6,6 +6,15 @@ public class VentaRepository : GenericRepository<Venta>, IVentaRepository
 {
     public VentaRepository(ApplicationDbContext context) : base(context) { }
 
+    // Tengo que sobreescribir este metodo para incluir las relaciones necesarias
+    public override async Task<IEnumerable<Venta>> GetAllAsync()
+    {
+        return await _dbSet
+            .Include(v => v.Cliente)
+            .Include(v => v.User)
+            .OrderByDescending(v => v.FechaVenta)
+            .ToListAsync();
+    }
     public async Task<IEnumerable<Venta>> GetVentasByFechaAsync(DateTime fecha)
     {
         return await _dbSet
