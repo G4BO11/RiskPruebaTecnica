@@ -16,7 +16,6 @@ namespace RiskPruebaTecnica.Controllers
             _userManager = userManager;
         }
 
-        // GET: /Account/Login
         public IActionResult Login(string returnUrl = null)
         {
             if (User.Identity.IsAuthenticated)
@@ -28,7 +27,6 @@ namespace RiskPruebaTecnica.Controllers
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
@@ -71,7 +69,6 @@ namespace RiskPruebaTecnica.Controllers
             return View(model);
         }
 
-        // POST: /Account/Logout
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

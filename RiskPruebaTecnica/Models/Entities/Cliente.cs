@@ -1,5 +1,4 @@
-﻿// using System.ComponentModel.DataAnnotations;
-namespace RiskPruebaTecnica.Models.Entities;
+﻿namespace RiskPruebaTecnica.Models.Entities;
 
 public class Cliente
 {

@@ -1,4 +1,3 @@
-// Repositories/ClienteRepository.cs
 using Microsoft.EntityFrameworkCore;
 using RiskPruebaTecnica.Data;
 using RiskPruebaTecnica.Models.Entities;

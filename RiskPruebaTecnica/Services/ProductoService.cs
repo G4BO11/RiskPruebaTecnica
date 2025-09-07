@@ -1,4 +1,3 @@
-// Services/ProductoService.cs
 using RiskPruebaTecnica.Models.Entities;
 using RiskPruebaTecnica.Repositories;
 
@@ -30,7 +29,6 @@ public class ProductoService : IProductoService
 
     public async Task<ProductoDto> CreateAsync(ProductoDto productoDto)
     {
-        // Validar código único
         if (await _productoRepository.ExistsByCodigoAsync(productoDto.Codigo))
         {
             throw new InvalidOperationException($"Ya existe un producto con código {productoDto.Codigo}");
@@ -69,7 +67,7 @@ public class ProductoService : IProductoService
         var producto = await _productoRepository.GetByIdAsync(id);
         if (producto != null)
         {
-            producto.Activo = false; // Borrado lógico
+            producto.Activo = false;
             await _productoRepository.UpdateAsync(producto);
         }
     }

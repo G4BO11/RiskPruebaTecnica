@@ -20,7 +20,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
     options.User.RequireUniqueEmail = true;
 
-    //? Averiguar que es
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     options.Lockout.MaxFailedAccessAttempts = 5;
 })

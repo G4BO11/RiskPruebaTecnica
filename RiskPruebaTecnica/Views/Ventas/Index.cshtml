@@ -28,8 +28,6 @@
                         <thead>
                             <tr>
                                 <th>Fecha</th>
-                                <th>Cliente</th>
-                                <th>Usuario</th>
                                 <th>Total</th>
                                 <th>Acciones</th>
                             </tr>
@@ -39,8 +37,6 @@
                             {
                                 <tr>
                                     <td>@venta.FechaVenta.ToString("dd/MM/yyyy HH:mm")</td>
-                                    <td>@venta.ClienteNombre</td>
-                                    <td>@venta.UsuarioNombre</td>
                                     <td class="text-end fw-bold">$@venta.Total.ToString("N0")</td>
                                     <td>
                                         <a asp-action="Details" asp-route-id="@venta.Id" class="btn btn-sm btn-primary">
@@ -52,7 +48,7 @@
                         </tbody>
                         <tfoot>
                             <tr class="table-info">
-                                <th colspan="3">TOTAL DEL DÍA</th>
+                                <th colspan="1">TOTAL</th>
                                 <th class="text-end">$@Model.Sum(v => v.Total).ToString("N0")</th>
                                 <th></th>
                             </tr>

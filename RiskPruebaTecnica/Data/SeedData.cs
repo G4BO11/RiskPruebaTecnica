@@ -29,7 +29,7 @@ public static class SeedData
             }
         }
 
-        // Productos
+
         if (!context.Productos.Any())
         {
             var productos = new List<Producto>
